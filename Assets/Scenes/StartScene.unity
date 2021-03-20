@@ -154,7 +154,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 813932753a00e42c99672578449b6425,
+      objectReference: {fileID: 21300000, guid: 522bcae88c1844d5c874eb270a73b314,
         type: 3}
     - target: {fileID: 8111072846451058363, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
@@ -688,6 +688,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: cover
       objectReference: {fileID: 0}
+    - target: {fileID: 7354329296861920692, guid: 1b55795e347a0448287c623037e5e7fc,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: abb1fea2c70b646e9928e6cf38a8e447,
+        type: 3}
     - target: {fileID: 8111072846451058363, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: m_Pivot.x
