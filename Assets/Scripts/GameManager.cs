@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Transform BeatPoint;
 	[SerializeField] Transform ButtonParent;
 
+	[SerializeField] Text scoreText;
+	[SerializeField] Text comboText;
+
+	[SerializeField] ScoreController scoreController;
+
 	string Title;
 	int BPM;
 	AudioSource music;
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
 		During = 3 * 1000;
 		isPlaying = false;
 		noteIndex = 0;
+		scoreController.onChanged += ScoreController_onChanged;
 
 		Play.onClick
 		  .AsObservable()
@@ -53,6 +59,10 @@ public class GameManager : MonoBehaviour
 			  play();
 		  });
 
+		this.UpdateAsObservable()
+			.Where(_ => isPlaying)
+			.Where(_ => !music.isPlaying)
+			.Subscribe(_ => end());
 
 		// ノーツを発射するタイミングかチェックし、go関数を発火
 		this.UpdateAsObservable()
@@ -70,6 +80,12 @@ public class GameManager : MonoBehaviour
 			});
 
 		music = GetComponent<AudioSource>();
+	}
+
+	private void ScoreController_onChanged(object sender, EventArgs e)
+	{
+		scoreText.text = scoreController.Score.ToString();
+		comboText.text = scoreController.Combo.ToString();
 	}
 
 	void loadChart()
@@ -184,14 +200,25 @@ public class GameManager : MonoBehaviour
 		if (minDiff != -1 & minDiff < CheckRange)
 		{
 			var touchedNote = Notes[index][minDiffIndex];
+
+			if (touchedNote.GetComponent<DotController>().IsFrame)
+			{
+				return;
+			}
+
 			if (minDiff < BeatRange)
 			{
 				touchedNote.SetActive(false);
+				scoreController.Success();
+				scoreText.text = scoreController.Score.ToString();
+
 				Debug.Log(" success.");
 			}
 			else
 			{
 				touchedNote.SetActive(false);
+				scoreController.Failure();
+
 				Debug.Log(" failure.");
 			}
 
@@ -210,5 +237,16 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("through");
 		}
+	}
+
+	void end()
+	{
+		scoreController.UpdateScore();
+
+		var store = ScoreData.Instance;
+		store.maxCombo = scoreController.MaxCombo;
+		store.goodCount = scoreController.Good;
+		store.missCount = scoreController.Miss;
+		store.score = scoreController.Score;
 	}
 }
