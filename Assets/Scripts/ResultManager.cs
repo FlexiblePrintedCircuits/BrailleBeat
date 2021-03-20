@@ -24,23 +24,18 @@ public class ResultManager : MonoBehaviour
         this.albumCover = GameObject.Find("AlbumCover");
         this.rank = GameObject.Find("Rank");
 
-        // TODO: 以下の変数は本来ゲーム画面などの別の画面から値を受け取る
-        string title = "君が代";
-        int goodCount = 100;
-        int missCount = 100;
-        int score = 1000000;
-        string albumCoverImgPath = "hata_kokki_flag_japan";
-
-        this.title.GetComponent<Text>().text = title;
-        this.score.GetComponent<Text>().text = score.ToString();
-        this.goodCount.GetComponent<Text>().text = goodCount.ToString();
-        this.missCount.GetComponent<Text>().text = missCount.ToString();
-        this.albumCover.GetComponent<Image>().sprite = Resources.Load<Sprite>(albumCoverImgPath);
-        this.rank.GetComponent<Text>().text = this.getRankText(score);
+        this.title.GetComponent<Text>().text = ScoreData.Instance.title;
+        this.score.GetComponent<Text>().text = ScoreData.Instance.score.ToString();
+        this.goodCount.GetComponent<Text>().text = ScoreData.Instance.goodCount.ToString();
+        this.missCount.GetComponent<Text>().text = ScoreData.Instance.missCount.ToString();
+        this.albumCover.GetComponent<Image>().sprite = Resources.Load<Sprite>(ScoreData.Instance.imgPath);
+        this.rank.GetComponent<Text>().text = this.getRankText(ScoreData.Instance.score);
     }
 
     public void BackToStartScene()
     {
+        // 遷移する前にスコアは初期化しておく
+        ScoreData.Instance.Reset();
         SceneManager.LoadScene("StartScene");
     }
 
