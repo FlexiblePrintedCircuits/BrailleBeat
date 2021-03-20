@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 			// ボタン
 			var button = ButtonParent.Find($"Button{i}");
 
-			button.GetComponent<ButtonController>().OnButtonPressed += GameManager_OnButtonPressed;
+			button.GetComponent<ButtonController>().OnButtonDown += GameManager_OnButtonPressed;
 		}
 
 		// ノーツjson読み込み
