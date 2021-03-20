@@ -10,5 +10,7 @@
 * unity-audio-spectrum
     * Plugins/Audio/ 以下に入れてください
     * https://github.com/keijiro/unity-audio-spectrum
+* Unity-FadeManager 
+  * .unitypackageからインポートした後、Plugins/naichilabに移動してください
+  * https://github.com/naichilab/Unity-FadeManager
 * UniRxをアセットストアから追加してください  
-
