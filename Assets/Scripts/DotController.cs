@@ -19,6 +19,8 @@ public class DotController : MonoBehaviour
 	public float Timing { get; set; }
 	public bool IsFrame { get; set; } = false;
 
+	ScoreController scoreController;
+
 	void OnEnable()
 	{
 		isGo = false;
@@ -30,6 +32,8 @@ public class DotController : MonoBehaviour
 		  {
 			  this.gameObject.transform.position = new Vector3(firstPos.x - Distance * (Time.time * 1000 - GoTime) / During, firstPos.y, firstPos.z);
 		  });
+
+		scoreController = GameObject.Find("Canvas").GetComponent<ScoreController>();
 	}
 
 	public void go(float distance, float during)
@@ -39,5 +43,19 @@ public class DotController : MonoBehaviour
 		GoTime = Time.time * 1000;
 
 		isGo = true;
+
+		Observable.Timer(TimeSpan.FromMilliseconds(During + 500))
+			.Subscribe(_ =>
+			{
+				if (gameObject.activeInHierarchy)
+				{
+					gameObject.SetActive(false);
+
+					if (!IsFrame)
+					{
+						scoreController.Failure();
+					}
+				}
+			});
 	}
 }
