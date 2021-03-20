@@ -1,5 +1,8 @@
-プラグインにあるをしててください
-/Assets/Plugins/MiniJSON/MiniJSON.cs
+
+プラグインに以下を追加してください  
+
+例 /Assets/Plugins/MiniJSON/MiniJSON.cs
+
 * MiniJSON  
     * https://gist.github.com/darktable/1411710  
 * JsonNode  
