@@ -234,8 +234,6 @@ public class GameManager : MonoBehaviour
 					note.SetActive(false);
 				}
 			}
-			// ひらがな の部分も非表示にする
-			CharacterNotes[index].SetActive(false);
 		}
 		else
 		{
