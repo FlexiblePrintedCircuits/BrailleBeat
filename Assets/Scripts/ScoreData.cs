@@ -11,7 +11,7 @@ public class ScoreData : MonoBehaviour
     public string title = "";
     public string imgPath = "";
 
-    void reset()
+    public void Reset()
     {
         this.score = 0;
         this.goodCount = 0;
