@@ -15,10 +15,14 @@ public class ButtonController : MonoBehaviour
 
 	[SerializeField] Sprite UpSprite;
 	[SerializeField] Sprite DownSprite;
+	[SerializeField] GameObject buttonEffect;
+	GameObject effect;
 
 	private void OnEnable()
 	{
 		state = gameObject.AddComponent<ButtonState>();
+		effect = Instantiate(buttonEffect, transform);
+		effect.GetComponent<ParticleSystem>().Stop();
 
 		// ƒ^ƒbƒv”»’è
 		var eventTrigger = GetComponent<ObservableEventTrigger>();
@@ -40,6 +44,11 @@ public class ButtonController : MonoBehaviour
 
 		OnButtonDown += ButtonController_OnButtonDown;
 		OnButtonUp += ButtonController_OnButtonUp;
+	}
+
+	public void PlaySuccessEffect()
+	{
+		effect.GetComponent<ParticleSystem>().Play();
 	}
 
 	private void ButtonController_OnButtonUp(object sender, int e)
