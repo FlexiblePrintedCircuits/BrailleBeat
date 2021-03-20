@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 8933990038250782051}
   - component: {fileID: 1755142806429402615}
   m_Layer: 5
-  m_Name: iamge
+  m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
