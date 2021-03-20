@@ -112,7 +112,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 892516885538613935}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &892516883852082420
 MonoBehaviour:
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad9ae1594fbc44f5a00b0e446d2eb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spectrum: {fileID: 892516884221455132}
   cubes:
   - {fileID: 892516884168311825}
   - {fileID: 892516885791851068}
@@ -222,53 +221,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &892516884221455133
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 892516884221455135}
-  - component: {fileID: 892516884221455132}
-  m_Layer: 0
-  m_Name: AudioSpectrum
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &892516884221455135
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892516884221455133}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1235.8182, y: 760.95447, z: -14.915297}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 892516885538613935}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &892516884221455132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892516884221455133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7710d556cc8443c940fd00e44a3ceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfSamples: 1024
-  bandType: 3
-  fallSpeed: 0.08
-  sensibility: 8
 --- !u!1 &892516884314773147
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +663,6 @@ Transform:
   m_LocalPosition: {x: -0.7550104, y: -2.3988595, z: -0.75558436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 892516884221455135}
   - {fileID: 892516883852082423}
   - {fileID: 397671786287247836}
   m_Father: {fileID: 0}
@@ -921,7 +872,7 @@ Transform:
   - {fileID: 892516883773460151}
   - {fileID: 3432389802278956983}
   m_Father: {fileID: 892516885538613935}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!1 &6920553932817709472
 GameObject:
