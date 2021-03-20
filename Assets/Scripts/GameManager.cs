@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Button Play;
 
 	[SerializeField] GameObject Tenji;
+	[SerializeField] Sprite frameSprite;
 
 	[SerializeField] Transform Center;
 	[SerializeField] Transform BeatPoint;
@@ -81,16 +82,17 @@ public class GameManager : MonoBehaviour
 				{
 					var note = int.Parse(rows[x].Get<string>());
 
-					if (note != 0)
+					var padding = new Vector3(x - 1, y - 1) * DotPadding;
+
+					GameObject Dot;
+					Dot = Instantiate(Tenji, Center.position + padding, Quaternion.identity);
+					if (note == 0)
 					{
-						var padding = new Vector3(x - 1, y - 1) * DotPadding;
-
-						GameObject Dot;
-						Dot = Instantiate(Tenji, Center.position + padding, Quaternion.identity);
-
-						Dot.GetComponent<DotController>().Timing = timingMs;
-						Notes.Add(Dot);
+						Dot.GetComponent<SpriteRenderer>().sprite = frameSprite;
 					}
+
+					Dot.GetComponent<DotController>().Timing = timingMs;
+					Notes.Add(Dot);
 				}
 			}
 

@@ -487,8 +487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 491, y: -365}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 551.54004, y: -396.7835}
+  m_SizeDelta: {x: 281.08, y: 93.567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &808612522
 MonoBehaviour:
@@ -850,5 +850,6 @@ MonoBehaviour:
   FilePath: Sample
   Play: {fileID: 808612522}
   Tenji: {fileID: 6022080660671770773, guid: bb71313bba2bb744fbea060ba4dd6208, type: 3}
+  frameSprite: {fileID: 21300000, guid: 4988591bb099562408da6963fb4ec8c7, type: 3}
   Center: {fileID: 2053063013}
   BeatPoint: {fileID: 247473383}
