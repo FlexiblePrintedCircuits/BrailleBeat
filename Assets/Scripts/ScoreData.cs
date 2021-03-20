@@ -12,7 +12,7 @@ public class ScoreData : MonoBehaviour
 	public int goodCount = 0;
 	public int missCount = 0;
 
-	public string musicPath { get; set; } = "";
+	public string musicPath { get; set; } = "kimigayo";
 
 	public void Reset()
 	{
