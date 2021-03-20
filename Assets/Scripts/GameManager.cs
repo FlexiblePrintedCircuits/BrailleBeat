@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 			var type = tenji["type"];
 			int count = type.Count;
 
-			var timingMs = int.Parse(tenji["timing"].Get<string>());
+			var timingMs = float.Parse(tenji["timing"].Get<string>());
 			NoteTimings.Add(timingMs);
 			for (var y = 0; y < count; y++)
 			{
