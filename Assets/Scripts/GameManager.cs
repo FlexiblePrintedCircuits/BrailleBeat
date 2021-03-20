@@ -11,10 +11,7 @@ public class GameManager : MonoBehaviour
 {
 	public float DotPadding { get => .35f; }
 
-	[SerializeField] string FilePath;
 	[SerializeField] string ClipPath;
-
-	[SerializeField] Button Play;
 
 	[SerializeField] GameObject Tenji;
 	[SerializeField] Sprite frameSprite;
@@ -50,18 +47,16 @@ public class GameManager : MonoBehaviour
 	{
 		// setup
 		Distance = Math.Abs(BeatPoint.position.x - Center.position.x);
-		During = 3 * 1000;
+		During = 2 * 1000;
 		isPlaying = false;
 		noteIndex = 0;
 		scoreController.onChanged += ScoreController_onChanged;
 
-		Play.onClick
-		  .AsObservable()
-		  .Subscribe(_ =>
-		  {
-			  loadChart();
-			  play();
-		  });
+		Observable.Timer(TimeSpan.FromSeconds(3)).Subscribe(_ =>
+		{
+			loadChart();
+			play();
+		});
 
 		this.UpdateAsObservable()
 			.Where(_ => isPlaying)
@@ -108,8 +103,12 @@ public class GameManager : MonoBehaviour
 			button.GetComponent<ButtonController>().OnButtonDown += GameManager_OnButtonPressed;
 		}
 
+		var musicPath = ScoreData.Instance.musicPath;
+		// 曲読み込み
+		music.clip = Resources.Load<AudioClip>($"musics/{musicPath}");
+
 		// ノーツjson読み込み
-		string jsonText = Resources.Load<TextAsset>(FilePath).ToString();
+		string jsonText = Resources.Load<TextAsset>($"fumens/{musicPath}").ToString();
 
 		JsonNode json = JsonNode.Parse(jsonText);
 		Title = json["title"].Get<string>();
@@ -158,8 +157,6 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		// 曲読み込み
-		music.clip = Resources.Load<AudioClip>(ClipPath);
 	}
 
 	private void GameManager_OnButtonPressed(object sender, int index)
