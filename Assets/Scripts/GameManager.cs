@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public float DotPadding { get => .35f; }
 
 	[SerializeField] string FilePath;
+	[SerializeField] string ClipPath;
 
 	[SerializeField] Button Play;
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 
 	string Title;
 	int BPM;
+	AudioSource music;
 	Dictionary<int, List<GameObject>> Notes;
 
 	float PlayTime;
@@ -67,8 +69,7 @@ public class GameManager : MonoBehaviour
 				noteIndex++;
 			});
 
-
-
+		music = GetComponent<AudioSource>();
 	}
 
 	void loadChart()
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
 				});
 		}
 
+		// ノーツjson読み込み
 		string jsonText = Resources.Load<TextAsset>(FilePath).ToString();
 
 		JsonNode json = JsonNode.Parse(jsonText);
@@ -145,10 +147,17 @@ public class GameManager : MonoBehaviour
 			}
 
 		}
+
+		// 曲読み込み
+		music.clip = Resources.Load<AudioClip>(ClipPath);
 	}
 
 	void play()
 	{
+		music.Stop();
+		music.volume = .3f;
+		music.Play();
+
 		PlayTime = Time.time * 1000;
 		isPlaying = true;
 		Debug.Log("Game Start!");
