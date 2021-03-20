@@ -1,16 +1,14 @@
 {
-    "title": "sample",
-    "bpm": "120",
-    "notes": [
-        {"timing": "5000", "type": "don"},
-        {"timing": "5250", "type": "ka"},
-        {"timing": "5500", "type": "ka"},
-        {"timing": "6000", "type": "don"},
-        {"timing": "6250", "type": "don"},
-        {"timing": "6500", "type": "don"},
-        {"timing": "7000", "type": "don"},
-        {"timing": "7250", "type": "don"},
-        {"timing": "7500", "type": "don"},
-        {"timing": "7750", "type": "ka"}
-    ]
+  "title": "sample",
+  "bpm": "120",
+  "notes": [
+    {
+      "timing": "5000",
+      "type": [
+        [ "0", "1", "0" ],
+        [ "0", "1", "1" ],
+        [ "0", "1", "0" ]
+      ]
+    },
+  ]
 }
