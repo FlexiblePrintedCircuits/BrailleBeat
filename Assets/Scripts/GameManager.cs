@@ -8,6 +8,7 @@ using UniRx.Triggers;
 
 public class GameManager : MonoBehaviour
 {
+	public float DotPadding { get => .35f; }
 
 	[SerializeField] string FilePath;
 
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
 
 					if (note != 0)
 					{
-						var padding = new Vector3(x - 1, y - 1) * .5f;
+						var padding = new Vector3(x - 1, y - 1) * DotPadding;
 
 						GameObject Dot;
 						Dot = Instantiate(Tenji, Center.position + padding, Quaternion.identity);
