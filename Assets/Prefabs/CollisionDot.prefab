@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 698955615249226492}
   - component: {fileID: 271960236527489615}
+  - component: {fileID: -8091312800847373308}
   m_Layer: 0
   m_Name: CollisionDot
   m_TagString: Untagged
@@ -82,3 +83,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8091312800847373308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7213404339923979849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6218b047b22a7fe4fb594565c8147008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 6487884775338034065, guid: 3fc0690455eb5f446b7e950c1ee4fff3,
+    type: 3}
