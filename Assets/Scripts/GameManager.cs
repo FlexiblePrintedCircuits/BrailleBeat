@@ -68,11 +68,13 @@ public class GameManager : MonoBehaviour
 			});
 
 
+
 	}
 
 	void loadChart()
 	{
 		Notes = new Dictionary<int, List<GameObject>>();
+		NoteTimings = new List<float>();
 		for (int i = 0; i < 9; i++)
 		{
 			Notes[i] = new List<GameObject>();
@@ -86,10 +88,22 @@ public class GameManager : MonoBehaviour
 				{
 					var index = button.GetComponent<ButtonState>().Index;
 					beat(index, Time.time * 1000 - PlayTime);
-					Debug.Log($"tap!: {index}");
 				});
 		}
-		NoteTimings = new List<float>();
+
+		// キーボード判定
+		var keys = new KeyCode[] { KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.W, KeyCode.E };
+		for (int i = 0; i < keys.Length; i++)
+		{
+			var key = keys[i];
+			var index = i;
+			this.UpdateAsObservable()
+				.Where(_ => Input.GetKeyDown(key))
+				.Subscribe(_ =>
+				{
+					beat(index, Time.time * 1000 - PlayTime);
+				});
+		}
 
 		string jsonText = Resources.Load<TextAsset>(FilePath).ToString();
 

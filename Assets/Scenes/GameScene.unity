@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333a0264631b14057abbcd7707e30a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FilePath: Sample
+  FilePath: humen
   Play: {fileID: 808612522}
   Tenji: {fileID: 6022080660671770773, guid: bb71313bba2bb744fbea060ba4dd6208, type: 3}
   frameSprite: {fileID: 21300000, guid: 4988591bb099562408da6963fb4ec8c7, type: 3}
