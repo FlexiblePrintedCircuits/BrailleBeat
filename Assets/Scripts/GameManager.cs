@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 	float CheckRange = 120;
 	float BeatRange = 80;
 	List<float> NoteTimings;
+	List<string> Characters;
 
 	void OnEnable()
 	{
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
 
 			var timingMs = float.Parse(tenji["timing"].Get<string>());
 			NoteTimings.Add(timingMs);
+			Characters.Add(tenji["character"].Get<string>());
 			for (var y = 0; y < count; y++)
 			{
 				var rows = type[y];
