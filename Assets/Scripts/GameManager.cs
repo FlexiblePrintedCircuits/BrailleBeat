@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField] string FilePath;
 
 	[SerializeField] Button Play;
-	[SerializeField] Button SetChart;
 
 	[SerializeField] GameObject Tenji;
 
@@ -23,12 +22,39 @@ public class GameManager : MonoBehaviour
 	int BPM;
 	List<GameObject> Notes;
 
+	float PlayTime;
+	float Distance;
+	float During;
+	bool isPlaying;
+	int noteIndex;
+
 	void OnEnable()
 	{
 
-		SetChart.onClick
+		// setup
+		Distance = Math.Abs(BeatPoint.position.x - Center.position.x);
+		During = 2 * 1000;
+		isPlaying = false;
+		noteIndex = 0;
+
+		Play.onClick
 		  .AsObservable()
-		  .Subscribe(_ => loadChart());
+		  .Subscribe(_ =>
+		  {
+			  loadChart();
+			  play();
+		  });
+
+		// ノーツを発射するタイミングかチェックし、go関数を発火
+		this.UpdateAsObservable()
+		  .Where(_ => isPlaying)
+		  .Where(_ => Notes.Count > noteIndex)
+		  .Where(_ => Notes[noteIndex].GetComponent<DotController>().Timing <= ((Time.time * 1000 - PlayTime) + During))
+		  .Subscribe(_ =>
+		  {
+			  Notes[noteIndex].GetComponent<DotController>().go(Distance, During);
+			  noteIndex++;
+		  });
 	}
 
 	void loadChart()
@@ -46,8 +72,7 @@ public class GameManager : MonoBehaviour
 			var type = tenji["type"];
 			int count = type.Count;
 
-			var timingMs = int.Parse(tenji["timing"].Get<String>());
-			var timingPadding = Vector3.right * timingMs * .001f;
+			var timingMs = int.Parse(tenji["timing"].Get<string>());
 			for (var y = 0; y < count; y++)
 			{
 				var rows = type[y];
@@ -59,9 +84,11 @@ public class GameManager : MonoBehaviour
 					{
 						var padding = new Vector3(x - 1, y - 1) * .5f;
 
-						GameObject Note;
-						Note = Instantiate(Tenji, Center.position + padding + timingPadding, Quaternion.identity);
-						Notes.Add(Note);
+						GameObject Dot;
+						Dot = Instantiate(Tenji, Center.position + padding, Quaternion.identity);
+
+						Dot.GetComponent<DotController>().Timing = timingMs;
+						Notes.Add(Dot);
 					}
 				}
 			}
@@ -71,6 +98,8 @@ public class GameManager : MonoBehaviour
 
 	void play()
 	{
+		PlayTime = Time.time * 1000;
+		isPlaying = true;
 		Debug.Log("Game Start!");
 	}
 }
