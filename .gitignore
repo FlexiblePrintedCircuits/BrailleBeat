@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 /Assets/Plugins/*
 !/Assets/Plugins/Scripts/
+
+/Assets/Editor/*
+/Assets/Editor.meta
