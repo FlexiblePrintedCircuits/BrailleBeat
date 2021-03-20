@@ -31,7 +31,7 @@ public class ResultManager : MonoBehaviour
         this.maxCombo.GetComponent<Text>().text = ScoreData.Instance.maxCombo.ToString();
         this.goodCount.GetComponent<Text>().text = ScoreData.Instance.goodCount.ToString();
         this.missCount.GetComponent<Text>().text = ScoreData.Instance.missCount.ToString();
-        this.albumCover.GetComponent<Image>().sprite = Resources.Load<Sprite>(ScoreData.Instance.imgPath);
+        this.albumCover.GetComponent<Image>().sprite = ScoreData.Instance.img;
         this.rank.GetComponent<Text>().text = this.getRankText(ScoreData.Instance.score);
     }
 
