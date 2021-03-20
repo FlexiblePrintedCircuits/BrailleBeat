@@ -21,6 +21,7 @@ public class ScoreController : MonoBehaviour
 
 	public void Success()
 	{
+		Debug.Log("success.");
 		Combo++;
 		Good++;
 		calcScore();
@@ -30,6 +31,7 @@ public class ScoreController : MonoBehaviour
 
 	public void Failure()
 	{
+		Debug.Log("failure.");
 		UpdateScore();
 		Combo = 0;
 		Miss++;

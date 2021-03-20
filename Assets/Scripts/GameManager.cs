@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -99,27 +100,7 @@ public class GameManager : MonoBehaviour
 			// ボタン
 			var button = ButtonParent.Find($"Button{i}");
 
-			button.GetComponent<ObservableEventTrigger>()
-				.OnPointerDownAsObservable()
-				.Subscribe((_) =>
-				{
-					var index = button.GetComponent<ButtonState>().Index;
-					beat(index, Time.time * 1000 - PlayTime);
-				});
-		}
-
-		// キーボード判定
-		var keys = new KeyCode[] { KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.W, KeyCode.E };
-		for (int i = 0; i < keys.Length; i++)
-		{
-			var key = keys[i];
-			var index = i;
-			this.UpdateAsObservable()
-				.Where(_ => Input.GetKeyDown(key))
-				.Subscribe(_ =>
-				{
-					beat(index, Time.time * 1000 - PlayTime);
-				});
+			button.GetComponent<ButtonController>().OnButtonDown += GameManager_OnButtonPressed;
 		}
 
 		// ノーツjson読み込み
@@ -166,6 +147,11 @@ public class GameManager : MonoBehaviour
 
 		// 曲読み込み
 		music.clip = Resources.Load<AudioClip>(ClipPath);
+	}
+
+	private void GameManager_OnButtonPressed(object sender, int index)
+	{
+		beat(index, Time.time * 1000 - PlayTime);
 	}
 
 	void play()
@@ -248,5 +234,7 @@ public class GameManager : MonoBehaviour
 		store.goodCount = scoreController.Good;
 		store.missCount = scoreController.Miss;
 		store.score = scoreController.Score;
+
+		SceneManager.LoadScene("ResultScene");
 	}
 }
