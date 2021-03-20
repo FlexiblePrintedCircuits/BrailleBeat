@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -158,8 +159,12 @@ public class GameManager : MonoBehaviour
                 {
                     Notes[i][noteIndex].GetComponent<DotController>().go(Distance, During);
                 }
-                CharacterNotes[noteIndex].SetActive(true);
-                CharacterNotes[noteIndex].GetComponent<DotController>().go(Distance, During);
+
+                var note = CharacterNotes[noteIndex];
+                note.SetActive(true);
+                note.GetComponent<DotController>().go(Distance, During);
+                note.transform.localScale = Vector3.zero;
+                note.transform.DOScale(Vector3.one, .3f).SetEase(Ease.InOutExpo);
                 noteIndex++;
             });
         this.CheckRange = baseBPM * 120 / BPM;
@@ -243,7 +248,13 @@ public class GameManager : MonoBehaviour
                 }
             }
             // ひらがな の部分も非表示にする
-            CharacterNotes[minDiffIndex].SetActive(false);
+            var character = CharacterNotes[minDiffIndex];
+            var charaText = character.transform.Find("Canvas").Find("CharText").GetComponent<Text>();
+            var duration = .2f;
+            character.transform.DOScale(new Vector3(1.3f, 1.3f), duration);
+            DOTween.ToAlpha(() => charaText.color, (color) => charaText.color = color, 0f, duration)
+                .SetEase(Ease.InOutExpo)
+                .OnComplete(() => character.SetActive(false));
         }
         else
         {
