@@ -21,11 +21,11 @@ public class ButtonController : MonoBehaviour
 		state = gameObject.AddComponent<ButtonState>();
 
 		// ƒ^ƒbƒv”»’è
-		GetComponent<ObservableEventTrigger>()
-				.OnPointerDownAsObservable()
-				.Subscribe((_) => OnButtonDown.Invoke(this, state.Index));
+		var eventTrigger = GetComponent<ObservableEventTrigger>();
+		eventTrigger.OnPointerDownAsObservable()
+			.Subscribe((_) => OnButtonDown.Invoke(this, state.Index));
 
-		GetComponent<ObservableEventTrigger>()
+		eventTrigger
 			.OnPointerUpAsObservable()
 			.Subscribe(_ => OnButtonUp.Invoke(this, state.Index));
 
