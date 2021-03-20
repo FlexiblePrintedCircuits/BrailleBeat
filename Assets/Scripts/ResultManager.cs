@@ -8,6 +8,7 @@ public class ResultManager : MonoBehaviour
 {
     GameObject title;
     GameObject score;
+    GameObject maxCombo;
     GameObject goodCount;
     GameObject missCount;
     GameObject albumCover;
@@ -19,6 +20,7 @@ public class ResultManager : MonoBehaviour
         // リザルト画面を構成するGameObjectを取得
         this.title = GameObject.Find("Title");
         this.score = GameObject.Find("Score");
+        this.maxCombo = GameObject.Find("MaxCombo");
         this.goodCount = GameObject.Find("GoodCount");
         this.missCount = GameObject.Find("MissCount");
         this.albumCover = GameObject.Find("AlbumCover");
@@ -26,6 +28,7 @@ public class ResultManager : MonoBehaviour
 
         this.title.GetComponent<Text>().text = ScoreData.Instance.title;
         this.score.GetComponent<Text>().text = ScoreData.Instance.score.ToString();
+        this.maxCombo.GetComponent<Text>().text = ScoreData.Instance.maxCombo.ToString();
         this.goodCount.GetComponent<Text>().text = ScoreData.Instance.goodCount.ToString();
         this.missCount.GetComponent<Text>().text = ScoreData.Instance.missCount.ToString();
         this.albumCover.GetComponent<Image>().sprite = Resources.Load<Sprite>(ScoreData.Instance.imgPath);
