@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Transform ButtonParent;
 	[SerializeField] GameObject CharacterPrefab;
 	[SerializeField] Transform CharacterSpawnPoint;
+
+	[SerializeField] Text scoreText;
+	[SerializeField] Text comboText;
+
+	[SerializeField] ScoreController scoreController;
 
 	string Title;
 	int BPM;
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
 		During = 3 * 1000;
 		isPlaying = false;
 		noteIndex = 0;
+		scoreController.onChanged += ScoreController_onChanged;
 
 		Play.onClick
 		  .AsObservable()
@@ -56,6 +63,10 @@ public class GameManager : MonoBehaviour
 			  play();
 		  });
 
+		this.UpdateAsObservable()
+			.Where(_ => isPlaying)
+			.Where(_ => !music.isPlaying)
+			.Subscribe(_ => end());
 
 		// ノーツを発射するタイミングかチェックし、go関数を発火
 		this.UpdateAsObservable()
@@ -76,6 +87,12 @@ public class GameManager : MonoBehaviour
 		music = GetComponent<AudioSource>();
 	}
 
+	private void ScoreController_onChanged(object sender, EventArgs e)
+	{
+		scoreText.text = scoreController.Score.ToString();
+		comboText.text = scoreController.Combo.ToString();
+	}
+
 	void loadChart()
 	{
 		Notes = new Dictionary<int, List<GameObject>>();
@@ -88,27 +105,7 @@ public class GameManager : MonoBehaviour
 			// ボタン
 			var button = ButtonParent.Find($"Button{i}");
 
-			button.GetComponent<ObservableEventTrigger>()
-				.OnPointerDownAsObservable()
-				.Subscribe((_) =>
-				{
-					var index = button.GetComponent<ButtonState>().Index;
-					beat(index, Time.time * 1000 - PlayTime);
-				});
-		}
-
-		// キーボード判定
-		var keys = new KeyCode[] { KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.W, KeyCode.E };
-		for (int i = 0; i < keys.Length; i++)
-		{
-			var key = keys[i];
-			var index = i;
-			this.UpdateAsObservable()
-				.Where(_ => Input.GetKeyDown(key))
-				.Subscribe(_ =>
-				{
-					beat(index, Time.time * 1000 - PlayTime);
-				});
+			button.GetComponent<ButtonController>().OnButtonDown += GameManager_OnButtonPressed;
 		}
 
 		// ノーツjson読み込み
@@ -165,6 +162,11 @@ public class GameManager : MonoBehaviour
 		music.clip = Resources.Load<AudioClip>(ClipPath);
 	}
 
+	private void GameManager_OnButtonPressed(object sender, int index)
+	{
+		beat(index, Time.time * 1000 - PlayTime);
+	}
+
 	void play()
 	{
 		music.Stop();
@@ -197,14 +199,25 @@ public class GameManager : MonoBehaviour
 		if (minDiff != -1 & minDiff < CheckRange)
 		{
 			var touchedNote = Notes[index][minDiffIndex];
+
+			if (touchedNote.GetComponent<DotController>().IsFrame)
+			{
+				return;
+			}
+
 			if (minDiff < BeatRange)
 			{
 				touchedNote.SetActive(false);
+				scoreController.Success();
+				scoreText.text = scoreController.Score.ToString();
+
 				Debug.Log(" success.");
 			}
 			else
 			{
 				touchedNote.SetActive(false);
+				scoreController.Failure();
+
 				Debug.Log(" failure.");
 			}
 
@@ -225,5 +238,18 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("through");
 		}
+	}
+
+	void end()
+	{
+		scoreController.UpdateScore();
+
+		var store = ScoreData.Instance;
+		store.maxCombo = scoreController.MaxCombo;
+		store.goodCount = scoreController.Good;
+		store.missCount = scoreController.Miss;
+		store.score = scoreController.Score;
+
+		SceneManager.LoadScene("ResultScene");
 	}
 }
