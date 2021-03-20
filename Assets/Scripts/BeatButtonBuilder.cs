@@ -13,8 +13,11 @@ public class BeatButtonBuilder : MonoBehaviour
 			for (int y = 0; y < 3; y++)
 			{
 				var padding = new Vector3(x - 1, y - 1) * 2f;
-				var point = Instantiate(button, transform.position + padding, Quaternion.identity);
-				point.transform.parent = transform;
+				var button = Instantiate(this.button, transform.position + padding, Quaternion.identity);
+				var index = x + y * 3;
+				button.name = $"Button{index}";
+				button.transform.parent = transform;
+				button.GetComponent<ButtonState>().Index = index;
 			}
 		}
 	}

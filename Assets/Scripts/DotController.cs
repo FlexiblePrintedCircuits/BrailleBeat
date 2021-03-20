@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
+
 public class DotController : MonoBehaviour
 {
 
@@ -16,6 +17,7 @@ public class DotController : MonoBehaviour
 	float GoTime;
 
 	public float Timing { get; set; }
+	public bool IsFrame { get; set; } = false;
 
 	void OnEnable()
 	{
