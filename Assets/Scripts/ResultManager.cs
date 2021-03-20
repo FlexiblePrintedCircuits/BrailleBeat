@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ResultManager : MonoBehaviour
     GameObject score;
     GameObject hitCount;
     GameObject missCount;
+    GameObject albumCover;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class ResultManager : MonoBehaviour
         this.score = GameObject.Find("Score");
         this.hitCount = GameObject.Find("HitCount");
         this.missCount = GameObject.Find("MissCount");
+        this.albumCover = GameObject.Find("AlbumCover");
 
         // TODO: 以下の変数は本来ゲーム画面などの別の画面から値を受け取る
         string title = "君が代";
@@ -28,5 +31,10 @@ public class ResultManager : MonoBehaviour
         this.score.GetComponent<Text>().text = "SCORE: " + score;
         this.hitCount.GetComponent<Text>().text = "HIT: " + hitCount;
         this.missCount.GetComponent<Text>().text = "MISS: " + missCount;
+    }
+
+    public void BackToStartScene()
+    {
+        SceneManager.LoadScene("StartScreen");
     }
 }
