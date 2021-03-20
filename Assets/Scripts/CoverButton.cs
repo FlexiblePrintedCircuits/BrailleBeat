@@ -16,6 +16,6 @@ public class CoverButton : MonoBehaviour
 		ScoreData.Instance.title = name.GetComponent<Text>().text;
 		ScoreData.Instance.img = this.GetComponent<Image>().sprite;
 		ScoreData.Instance.musicPath = musicPath;
-		SceneManager.LoadScene(sceneName);
+		FadeManager.Instance.LoadScene(sceneName, 1f);
 	}
 }

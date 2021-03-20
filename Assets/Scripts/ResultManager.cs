@@ -39,7 +39,7 @@ public class ResultManager : MonoBehaviour
 	{
 		// 遷移する前にスコアは初期化しておく
 		ScoreData.Instance.Reset();
-		SceneManager.LoadScene("StartScene");
+		FadeManager.Instance.LoadScene("StartScene", 1f);
 	}
 
 	private string getRankText(int score)
