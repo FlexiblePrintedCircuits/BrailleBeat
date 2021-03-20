@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 	{
 		// setup
 		Distance = Math.Abs(BeatPoint.position.x - Center.position.x);
-		During = 3 * 1000;
+		During = 2 * 1000;
 		isPlaying = false;
 		noteIndex = 0;
 		scoreController.onChanged += ScoreController_onChanged;

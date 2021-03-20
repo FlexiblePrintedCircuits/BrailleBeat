@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2043684828}
     m_Modifications:
+    - target: {fileID: 1755142806429402615, guid: 1b55795e347a0448287c623037e5e7fc,
+        type: 3}
+      propertyPath: musicPath
+      value: fumens/diary
+      objectReference: {fileID: 0}
     - target: {fileID: 3948910255622258552, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: m_Name
@@ -521,6 +526,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2043684828}
     m_Modifications:
+    - target: {fileID: 1755142806429402615, guid: 1b55795e347a0448287c623037e5e7fc,
+        type: 3}
+      propertyPath: musicPath
+      value: fumens/kimigayo
+      objectReference: {fileID: 0}
     - target: {fileID: 3948910255622258552, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: m_Name
@@ -725,6 +735,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2043684828}
     m_Modifications:
+    - target: {fileID: 1755142806429402615, guid: 1b55795e347a0448287c623037e5e7fc,
+        type: 3}
+      propertyPath: musicPath
+      value: fumens/march
+      objectReference: {fileID: 0}
     - target: {fileID: 3948910255622258552, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: m_Name
