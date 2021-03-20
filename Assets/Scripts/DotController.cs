@@ -36,6 +36,23 @@ public class DotController : MonoBehaviour
 		scoreController = GameObject.Find("Canvas").GetComponent<ScoreController>();
 	}
 
+	public void Success()
+	{
+		scoreController.Success();
+		dispose();
+	}
+
+	public void Failure()
+	{
+		scoreController.Failure();
+		dispose();
+	}
+
+	void dispose()
+	{
+		gameObject.SetActive(false);
+	}
+
 	public void go(float distance, float during)
 	{
 		Distance = distance;
