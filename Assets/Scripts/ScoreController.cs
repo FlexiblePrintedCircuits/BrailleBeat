@@ -5,10 +5,15 @@ public class ScoreController : MonoBehaviour
 {
 	public event EventHandler onChanged;
 
-	public int Combo { get; private set; } = 0;
-	public int MaxCombo { get; private set; } = 0;
+	public readonly int MaxPoint = 1000000;
 
-	public int Score { get; private set; } = 0;
+	public int Score { get => (int)(MaxPoint * ((double)Good / NotesCount)); }
+
+	public int NotesCount { get; set; } = 0;
+
+	public int Combo { get; private set; } = 0;
+
+	public int MaxCombo { get; private set; } = 0;
 
 	public int Good { get; private set; } = 0;
 
@@ -24,7 +29,6 @@ public class ScoreController : MonoBehaviour
 		Debug.Log("success.");
 		Combo++;
 		Good++;
-		calcScore();
 
 		onChanged.Invoke(this, EventArgs.Empty);
 	}
@@ -37,12 +41,5 @@ public class ScoreController : MonoBehaviour
 		Miss++;
 
 		onChanged.Invoke(this, EventArgs.Empty);
-	}
-
-	void calcScore()
-	{
-		// TODO: 計算式を適用する
-		// 100万点 / ノーツ数が1ノーツ当たりの得点
-		Score += 100;
 	}
 }

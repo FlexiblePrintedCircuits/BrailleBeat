@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
 		Title = json["title"].Get<string>();
 		BPM = int.Parse(json["bpm"].Get<string>());
 
+		var notesCount = 0;
 		foreach (var tenji in json["notes"])
 		{
 			var type = tenji["type"];
@@ -134,16 +135,21 @@ public class GameManager : MonoBehaviour
 					{
 						Dot.GetComponent<SpriteRenderer>().sprite = frameSprite;
 					}
+					else
+					{
+						notesCount++;
+					}
 
 					var controller = Dot.GetComponent<DotController>();
 					controller.Timing = timingMs;
 					controller.IsFrame = isFrame;
 					Notes[index].Add(Dot);
+
 				}
 			}
-
 		}
 
+		scoreController.NotesCount = notesCount;
 	}
 
 	private void GameManager_OnButtonPressed(object sender, int index)
