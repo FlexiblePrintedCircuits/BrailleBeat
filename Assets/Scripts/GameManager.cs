@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -248,5 +249,7 @@ public class GameManager : MonoBehaviour
 		store.goodCount = scoreController.Good;
 		store.missCount = scoreController.Miss;
 		store.score = scoreController.Score;
+
+		SceneManager.LoadScene("ResultScene");
 	}
 }
