@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] ScoreController scoreController;
 
+	[SerializeField] GameObject particle;
+
 	string Title;
 	int BPM;
 	AudioSource music;
@@ -198,24 +200,26 @@ public class GameManager : MonoBehaviour
 		if (minDiff != -1 & minDiff < CheckRange)
 		{
 			var touchedNote = Notes[index][minDiffIndex];
+			var dotController = touchedNote.GetComponent<DotController>();
 
-			if (touchedNote.GetComponent<DotController>().IsFrame)
+			if (dotController.IsFrame)
 			{
 				return;
 			}
 
 			if (minDiff < BeatRange)
 			{
-				touchedNote.SetActive(false);
-				scoreController.Success();
+				dotController.Success();
 				scoreText.text = scoreController.Score.ToString();
+
+				var button = GameObject.Find("BeatPoint").transform.Find($"BeatButton{index}");
+				button.GetComponent<CollisionController>().Tap();
 
 				Debug.Log(" success.");
 			}
 			else
 			{
-				touchedNote.SetActive(false);
-				scoreController.Failure();
+				dotController.Failure();
 
 				Debug.Log(" failure.");
 			}
