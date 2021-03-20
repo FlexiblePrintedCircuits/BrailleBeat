@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Transform Center;
 	[SerializeField] Transform BeatPoint;
 	[SerializeField] Transform ButtonParent;
+	[SerializeField] GameObject CharacterPrefab;
+	[SerializeField] Transform CharacterSpawnPoint;
 
 	[SerializeField] Text scoreText;
 	[SerializeField] Text comboText;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
 	float CheckRange = 120;
 	float BeatRange = 80;
 	List<float> NoteTimings;
+	List<GameObject> CharacterNotes;
 
 	void OnEnable()
 	{
@@ -71,7 +74,8 @@ public class GameManager : MonoBehaviour
 				{
 					Notes[i][noteIndex].GetComponent<DotController>().go(Distance, During);
 				}
-
+				CharacterNotes[noteIndex].SetActive(true);
+				CharacterNotes[noteIndex].GetComponent<DotController>().go(Distance, During);
 				noteIndex++;
 			});
 
@@ -88,6 +92,7 @@ public class GameManager : MonoBehaviour
 	{
 		Notes = new Dictionary<int, List<GameObject>>();
 		NoteTimings = new List<float>();
+		CharacterNotes = new List<GameObject>();
 		for (int i = 0; i < 9; i++)
 		{
 			Notes[i] = new List<GameObject>();
@@ -117,6 +122,14 @@ public class GameManager : MonoBehaviour
 
 			var timingMs = float.Parse(tenji["timing"].Get<string>());
 			NoteTimings.Add(timingMs);
+			// ノーツの下に表示するひらがなを生成
+			string character = tenji["character"].Get<string>();
+			GameObject characterNote = Instantiate(CharacterPrefab, CharacterSpawnPoint.position, Quaternion.identity);
+			characterNote.transform.Find("Canvas").Find("CharText").GetComponent<Text>().text = character;
+			characterNote.GetComponent<DotController>().Timing = timingMs;
+			characterNote.GetComponent<DotController>().IsFrame = false;
+			characterNote.SetActive(false);
+			CharacterNotes.Add(characterNote);
 			for (var y = 0; y < count; y++)
 			{
 				var rows = type[y];
@@ -221,6 +234,8 @@ public class GameManager : MonoBehaviour
 					note.SetActive(false);
 				}
 			}
+			// ひらがな の部分も非表示にする
+			CharacterNotes[index].SetActive(false);
 		}
 		else
 		{
