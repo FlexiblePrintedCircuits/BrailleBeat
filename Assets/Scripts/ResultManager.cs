@@ -11,6 +11,7 @@ public class ResultManager : MonoBehaviour
     GameObject hitCount;
     GameObject missCount;
     GameObject albumCover;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +27,13 @@ public class ResultManager : MonoBehaviour
         int hitCount = 100;
         int missCount = 100;
         int score = 1000000;
+        string albumCoverImgPath = "hata_kokki_flag_japan";
 
         this.title.GetComponent<Text>().text = title;
         this.score.GetComponent<Text>().text = "SCORE: " + score;
         this.hitCount.GetComponent<Text>().text = "HIT: " + hitCount;
         this.missCount.GetComponent<Text>().text = "MISS: " + missCount;
+        this.albumCover.GetComponent<Image>().sprite = Resources.Load<Sprite>(albumCoverImgPath);
     }
 
     public void BackToStartScene()
