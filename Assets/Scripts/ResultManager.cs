@@ -38,6 +38,6 @@ public class ResultManager : MonoBehaviour
 
     public void BackToStartScene()
     {
-        SceneManager.LoadScene("StartScreen");
+        SceneManager.LoadScene("StartScene");
     }
 }
