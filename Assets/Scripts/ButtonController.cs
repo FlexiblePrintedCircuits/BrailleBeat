@@ -16,9 +16,16 @@ public class ButtonController : MonoBehaviour
 	[SerializeField] Sprite UpSprite;
 	[SerializeField] Sprite DownSprite;
 
+	AudioSource source;
+	AudioClip se;
+
+
 	private void OnEnable()
 	{
 		state = gameObject.AddComponent<ButtonState>();
+		source = gameObject.AddComponent<AudioSource>();
+		source.pitch = 2f;
+		se = Resources.Load<AudioClip>("sound_effects/success");
 
 		// ƒ^ƒbƒv”»’è
 		var eventTrigger = GetComponent<ObservableEventTrigger>();
@@ -52,6 +59,7 @@ public class ButtonController : MonoBehaviour
 	private void ButtonController_OnButtonDown(object sender, int e)
 	{
 		state.Pressed = true;
+		source.PlayOneShot(se, .1f);
 
 		GetComponent<SpriteRenderer>().sprite = DownSprite;
 	}
