@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour
     bool isPlaying;
     int noteIndex;
 
-    float CheckRange = 120;
-    float BeatRange = 80;
+    float CheckRange;
+    float BeatRange;
+    float baseBPM = 40;
     List<float> NoteTimings;
     List<GameObject> CharacterNotes;
 
@@ -142,7 +143,7 @@ public class GameManager : MonoBehaviour
 
         scoreController.NotesCount = notesCount;
 
-        During = 100 * 1000 / BPM;
+        During = baseBPM * 2 * 1000 / BPM;
         // ノーツを発射するタイミングかチェックし、go関数を発火
         this.UpdateAsObservable()
             .Where(_ => isPlaying)
@@ -158,11 +159,16 @@ public class GameManager : MonoBehaviour
                 CharacterNotes[noteIndex].GetComponent<DotController>().go(Distance, During);
                 noteIndex++;
             });
+        this.CheckRange = baseBPM * 120 / BPM;
+        this.BeatRange = baseBPM * 80 / BPM;
     }
 
     private void GameManager_OnButtonPressed(object sender, int index)
     {
-        beat(index, Time.time * 1000 - PlayTime);
+        if (isPlaying)
+        {
+            beat(index, Time.time * 1000 - PlayTime);
+        }
     }
 
     void play()
