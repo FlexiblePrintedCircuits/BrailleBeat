@@ -6,7 +6,7 @@ public class ScoreData : MonoBehaviour
 {
     public readonly static ScoreData Instance = new ScoreData();
     public string title = "";
-    public string imgPath = "";
+    public Sprite img = null;
     public int score = 0;
     public int maxCombo = 0;
     public int goodCount = 0;
@@ -15,7 +15,7 @@ public class ScoreData : MonoBehaviour
     public void Reset()
     {
         this.title = "";
-        this.imgPath = "";
+        this.img = null;
         this.maxCombo = 0;
         this.score = 0;
         this.goodCount = 0;
