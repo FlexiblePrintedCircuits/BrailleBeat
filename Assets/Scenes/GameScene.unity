@@ -1484,6 +1484,7 @@ MonoBehaviour:
   Center: {fileID: 2053063013}
   BeatPoint: {fileID: 247473383}
   ButtonParent: {fileID: 4498953}
+  BeatParent: {fileID: 247473383}
   CharacterPrefab: {fileID: 5411551461976912959, guid: 9aeba8747ee18c953810e7e56a940ade,
     type: 3}
   CharacterSpawnPoint: {fileID: 790100556}

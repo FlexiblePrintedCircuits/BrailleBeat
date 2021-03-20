@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Sprite frameSprite;
 
 	[SerializeField] Transform Center;
-	[SerializeField] Transform BeatPoint;
 	[SerializeField] Transform ButtonParent;
+	[SerializeField] Transform BeatParent;
 	[SerializeField] GameObject CharacterPrefab;
 	[SerializeField] Transform CharacterSpawnPoint;
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 	void OnEnable()
 	{
 		// setup
-		Distance = Math.Abs(BeatPoint.position.x - Center.position.x);
+		Distance = Math.Abs(BeatParent.position.x - Center.position.x);
 		isPlaying = false;
 		noteIndex = 0;
 		scoreController.onChanged += ScoreController_onChanged;
@@ -215,8 +215,10 @@ public class GameManager : MonoBehaviour
 				touchController.Success();
 				scoreText.text = scoreController.Score.ToString();
 
-				var button = GameObject.Find("BeatPoint").transform.Find($"BeatButton{index}");
-				button.GetComponent<CollisionController>().Tap();
+				var beat = BeatParent.Find($"BeatButton{index}");
+				var button = ButtonParent.Find($"Button{index}");
+				beat.GetComponent<CollisionController>().Tap();
+				button.GetComponent<ButtonController>().PlaySuccessEffect();
 
 				Debug.Log(" success.");
 			}

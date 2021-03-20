@@ -137,3 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpSprite: {fileID: 21300000, guid: 4988591bb099562408da6963fb4ec8c7, type: 3}
   DownSprite: {fileID: 21300000, guid: 9454dabcc5382254fa87ec65863a3347, type: 3}
+  buttonEffect: {fileID: 6815210360440820713, guid: a0d7e81628f0ee4448615fad04e3de28,
+    type: 3}
