@@ -203,23 +203,23 @@ public class GameManager : MonoBehaviour
 		if (minDiff != -1 & minDiff < CheckRange)
 		{
 			var touchedNote = Notes[index][minDiffIndex];
-			var controller = touchedNote.GetComponent<DotController>();
+			var touchController = touchedNote.GetComponent<DotController>();
 
-			if (controller.IsFrame)
+			if (touchController.IsFrame)
 			{
 				return;
 			}
 
 			if (minDiff < BeatRange)
 			{
-				controller.Success();
+				touchController.Success();
 				scoreText.text = scoreController.Score.ToString();
 
 				Debug.Log(" success.");
 			}
 			else
 			{
-				controller.Failure();
+				touchController.Failure();
 
 				Debug.Log(" failure.");
 			}
