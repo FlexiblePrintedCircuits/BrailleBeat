@@ -9,9 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	public float DotPadding { get => .35f; }
-
-	[SerializeField] string ClipPath;
+	public float DotPadding { get => .8f; }
 
 	[SerializeField] GameObject Tenji;
 	[SerializeField] Sprite frameSprite;
@@ -52,11 +50,8 @@ public class GameManager : MonoBehaviour
 		noteIndex = 0;
 		scoreController.onChanged += ScoreController_onChanged;
 
-		Observable.Timer(TimeSpan.FromSeconds(3)).Subscribe(_ =>
-		{
-			loadChart();
-			play();
-		});
+		Observable.Timer(TimeSpan.FromSeconds(1)).Subscribe(_ => loadChart());
+		Observable.Timer(TimeSpan.FromSeconds(3)).Subscribe(_ => play());
 
 		this.UpdateAsObservable()
 			.Where(_ => isPlaying)
@@ -127,7 +122,7 @@ public class GameManager : MonoBehaviour
 			GameObject characterNote = Instantiate(CharacterPrefab, CharacterSpawnPoint.position, Quaternion.identity);
 			characterNote.transform.Find("Canvas").Find("CharText").GetComponent<Text>().text = character;
 			characterNote.GetComponent<DotController>().Timing = timingMs;
-			characterNote.GetComponent<DotController>().IsFrame = false;
+			characterNote.GetComponent<DotController>().IsFrame = true;
 			characterNote.SetActive(false);
 			CharacterNotes.Add(characterNote);
 			for (var y = 0; y < count; y++)
@@ -163,6 +158,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		scoreController.NotesCount = notesCount;
+
 	}
 
 	private void GameManager_OnButtonPressed(object sender, int index)
@@ -234,6 +230,8 @@ public class GameManager : MonoBehaviour
 					note.SetActive(false);
 				}
 			}
+			// ひらがな の部分も非表示にする
+			CharacterNotes[minDiffIndex].SetActive(false);
 		}
 		else
 		{
