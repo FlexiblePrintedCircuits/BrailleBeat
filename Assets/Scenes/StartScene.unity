@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 1755142806429402615, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: musicPath
-      value: diary
+      value: maou_short_27_yukinohuru
       objectReference: {fileID: 0}
     - target: {fileID: 3948910255622258552, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
@@ -148,7 +148,7 @@ PrefabInstance:
     - target: {fileID: 6950276901999086976, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}
       propertyPath: m_Text
-      value: DIARY
+      value: yukinohuru
       objectReference: {fileID: 0}
     - target: {fileID: 7354329296861920692, guid: 1b55795e347a0448287c623037e5e7fc,
         type: 3}

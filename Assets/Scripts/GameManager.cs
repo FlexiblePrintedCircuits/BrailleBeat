@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] ScoreController scoreController;
 
-	[SerializeField] GameObject particle;
-
 	string Title;
 	int BPM;
 	AudioSource music;
@@ -38,8 +36,9 @@ public class GameManager : MonoBehaviour
 	bool isPlaying;
 	int noteIndex;
 
-	float CheckRange = 120;
-	float BeatRange = 80;
+	float CheckRange;
+	float BeatRange;
+	float baseBPM = 40;
 	List<float> NoteTimings;
 	List<GameObject> CharacterNotes;
 
@@ -47,7 +46,6 @@ public class GameManager : MonoBehaviour
 	{
 		// setup
 		Distance = Math.Abs(BeatPoint.position.x - Center.position.x);
-		During = 2 * 1000;
 		isPlaying = false;
 		noteIndex = 0;
 		scoreController.onChanged += ScoreController_onChanged;
@@ -59,22 +57,6 @@ public class GameManager : MonoBehaviour
 			.Where(_ => isPlaying)
 			.Where(_ => !music.isPlaying)
 			.Subscribe(_ => end());
-
-		// ノーツを発射するタイミングかチェックし、go関数を発火
-		this.UpdateAsObservable()
-			.Where(_ => isPlaying)
-			.Where(_ => NoteTimings.Count > noteIndex)
-			.Where(_ => NoteTimings[noteIndex] <= ((Time.time * 1000 - PlayTime) + During))
-			.Subscribe(_ =>
-			{
-				for (int i = 0; i < 9; i++)
-				{
-					Notes[i][noteIndex].GetComponent<DotController>().go(Distance, During);
-				}
-				CharacterNotes[noteIndex].SetActive(true);
-				CharacterNotes[noteIndex].GetComponent<DotController>().go(Distance, During);
-				noteIndex++;
-			});
 
 		music = GetComponent<AudioSource>();
 	}
@@ -161,11 +143,32 @@ public class GameManager : MonoBehaviour
 
 		scoreController.NotesCount = notesCount;
 
+		During = baseBPM * 2 * 1000 / BPM;
+		// ノーツを発射するタイミングかチェックし、go関数を発火
+		this.UpdateAsObservable()
+			.Where(_ => isPlaying)
+			.Where(_ => NoteTimings.Count > noteIndex)
+			.Where(_ => NoteTimings[noteIndex] <= ((Time.time * 1000 - PlayTime) + During))
+			.Subscribe(_ =>
+			{
+				for (int i = 0; i < 9; i++)
+				{
+					Notes[i][noteIndex].GetComponent<DotController>().go(Distance, During);
+				}
+				CharacterNotes[noteIndex].SetActive(true);
+				CharacterNotes[noteIndex].GetComponent<DotController>().go(Distance, During);
+				noteIndex++;
+			});
+		this.CheckRange = baseBPM * 120 / BPM;
+		this.BeatRange = baseBPM * 80 / BPM;
 	}
 
 	private void GameManager_OnButtonPressed(object sender, int index)
 	{
-		beat(index, Time.time * 1000 - PlayTime);
+		if (isPlaying)
+		{
+			beat(index, Time.time * 1000 - PlayTime);
+		}
 	}
 
 	void play()
@@ -200,26 +203,23 @@ public class GameManager : MonoBehaviour
 		if (minDiff != -1 & minDiff < CheckRange)
 		{
 			var touchedNote = Notes[index][minDiffIndex];
-			var dotController = touchedNote.GetComponent<DotController>();
+			var controller = touchedNote.GetComponent<DotController>();
 
-			if (dotController.IsFrame)
+			if (controller.IsFrame)
 			{
 				return;
 			}
 
 			if (minDiff < BeatRange)
 			{
-				dotController.Success();
+				controller.Success();
 				scoreText.text = scoreController.Score.ToString();
-
-				var button = GameObject.Find("BeatPoint").transform.Find($"BeatButton{index}");
-				button.GetComponent<CollisionController>().Tap();
 
 				Debug.Log(" success.");
 			}
 			else
 			{
-				dotController.Failure();
+				controller.Failure();
 
 				Debug.Log(" failure.");
 			}
