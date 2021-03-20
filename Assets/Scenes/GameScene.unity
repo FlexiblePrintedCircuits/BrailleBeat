@@ -1490,8 +1490,6 @@ MonoBehaviour:
   scoreText: {fileID: 1922912463}
   comboText: {fileID: 2083916037}
   scoreController: {fileID: 2035576388}
-  particle: {fileID: 6487884775338034065, guid: 3fc0690455eb5f446b7e950c1ee4fff3,
-    type: 3}
 --- !u!82 &2100433790
 AudioSource:
   m_ObjectHideFlags: 0
