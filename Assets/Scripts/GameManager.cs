@@ -215,6 +215,9 @@ public class GameManager : MonoBehaviour
 				touchController.Success();
 				scoreText.text = scoreController.Score.ToString();
 
+				var button = GameObject.Find("BeatPoint").transform.Find($"BeatButton{index}");
+				button.GetComponent<CollisionController>().Tap();
+
 				Debug.Log(" success.");
 			}
 			else
