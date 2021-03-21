@@ -18,8 +18,11 @@ public class ButtonController : MonoBehaviour
 	[SerializeField] GameObject buttonEffect;
 	GameObject effect;
 
+	Transform child;
+
 	private void OnEnable()
 	{
+		child = transform.Find("Frame");
 		state = gameObject.AddComponent<ButtonState>();
 		effect = Instantiate(buttonEffect, transform);
 		effect.GetComponent<ParticleSystem>().Stop();
@@ -55,13 +58,13 @@ public class ButtonController : MonoBehaviour
 	{
 		state.Pressed = false;
 
-		GetComponent<SpriteRenderer>().sprite = UpSprite;
+		child.GetComponent<SpriteRenderer>().sprite = null;
 	}
 
 	private void ButtonController_OnButtonDown(object sender, int e)
 	{
 		state.Pressed = true;
 
-		GetComponent<SpriteRenderer>().sprite = DownSprite;
+		child.GetComponent<SpriteRenderer>().sprite = DownSprite;
 	}
 }
