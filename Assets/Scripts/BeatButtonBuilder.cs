@@ -12,7 +12,7 @@ public class BeatButtonBuilder : MonoBehaviour
 		{
 			for (int y = 0; y < 3; y++)
 			{
-				var padding = new Vector3(x - 1, y - 1) * 2f;
+				var padding = new Vector3(x - 1, -1 * (y - 1)) * 2f;
 				var button = Instantiate(this.button, transform.position + padding, Quaternion.identity);
 				var index = x + y * 3;
 				button.name = $"Button{index}";

@@ -14,7 +14,7 @@ public class BeatPointBuilder : MonoBehaviour
 			for (int y = 0; y < 3; y++)
 			{
 				var i = x + y * 3;
-				var padding = new Vector3(x - 1, y - 1) * manager.DotPadding;
+				var padding = new Vector3(x - 1, -1 * (y - 1)) * manager.DotPadding;
 				var point = Instantiate(beatPoint, transform.position + padding, Quaternion.identity);
 				point.name = $"BeatButton{i}";
 				point.transform.parent = transform;

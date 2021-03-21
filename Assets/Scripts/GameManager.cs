@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                     var note = int.Parse(rows[x].Get<string>());
                     var index = x + y * rows.Count;
 
-                    var padding = new Vector3(x - 1, y - 1) * DotPadding;
+                    var padding = new Vector3(x - 1, -1 * (y - 1)) * DotPadding;
 
                     GameObject Dot;
                     Dot = Instantiate(Tenji, Center.position + padding, Quaternion.identity);

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
-	readonly KeyCode[] keys = new KeyCode[] { KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.W, KeyCode.E };
+	readonly KeyCode[] keys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Z, KeyCode.X, KeyCode.C };
 	public event EventHandler<int> OnButtonDown;
 	public event EventHandler<int> OnButtonUp;
 
