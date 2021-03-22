@@ -1,5 +1,5 @@
-* プレイする
-   * [WebGL](https://junnetworks.github.io/BrailleBeatWebGL/)
+プレイする
+* [WebGL](https://junnetworks.github.io/BrailleBeatWebGL/)
 
 プラグインに以下を追加してください  
 
