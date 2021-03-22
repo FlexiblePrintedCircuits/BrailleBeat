@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 674757955}
         m_TargetAssemblyTypeName: ResultManager, Assembly-CSharp
-        m_MethodName: BackToStartScene
+        m_MethodName: Share2Twitter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
